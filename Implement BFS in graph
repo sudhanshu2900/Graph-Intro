@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Graph{
+    int V;                                                        //initialize vertex
+    list<int> *mg;                                                //initialize array of linked list
+     
+    public:
+    
+    Graph(int v){
+        V=v;
+        mg = new list<int>[V];                                    //define array with vertices
+    }
+    
+    void addEdge(int u, int v, bool bidir=true){
+        mg[u].push_back(v);                                       //push 'v' vertex
+        if(bidir==true)
+            mg[v].push_back(u);                                   //if bidirectional edges then- push 'u' vertex also
+    }
+    
+    void BFS(int src){                                            //Taking a source vertex
+        
+        queue<int> q;                                             //create a queue
+        bool *visited= new bool[V]{0};                            //create a visited boolean array
+        
+        q.push(src);                                             //put source vertex into queue
+        visited[src]=true;                                       //then mark visited TRUE on that vertex
+        
+   
+        while(!q.empty()){                                       //repeat above step again and again
+            int ele = q.front();
+            cout<<ele<<" ";
+            q.pop();
+            
+            for(int i: mg[ele]){
+                if(!visited[i])
+                    q.push(i);
+                    visited[i]=true;
+            }
+        }
+    }    
+};
+
+int main()
+{
+    Graph g(6);
+    g.addEdge(0,1);
+    g.addEdge(1,2);
+    g.addEdge(0,4);
+    g.addEdge(2,4);
+    g.addEdge(3,2);
+    g.addEdge(2,3);
+    g.addEdge(3,5);
+    
+    g.BFS(0);
+    
+    return 0;
+}
+
