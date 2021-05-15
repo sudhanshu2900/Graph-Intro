@@ -1,0 +1,56 @@
+PROGRAM:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Graph{
+    int V;                                                  //initialize vertex
+    list<int> *mg;                                          //initialize array of linked list
+    
+    public:
+    Graph(int v){
+        V=v;
+        mg = new list<int>[V];                             //define array with vertices
+    }
+    
+    void addEdge(int u, int v, bool bidir=true){
+        mg[u].push_back(v);                               //push 'v' vertex
+        if(bidir==true)
+            mg[v].push_back(u);                           //if bidirectional edges then- push 'u' vertex also
+    }
+    
+    void print(){
+        for(int i=0;i<V;i++){                             //for every vertex (for every entry of array)
+            cout<<i<<"->";
+            for(int node:mg[i])         
+                cout<<node<<", ";                         //print values corresponding to every vertex
+        }
+        cout<<endl;
+    }
+};
+
+int main()
+{
+    Graph g(4);
+    g.addEdge(0,1);
+    g.addEdge(0,2);
+    g.addEdge(0,3);
+    g.addEdge(1,3);
+    g.addEdge(3,2);
+    
+    g.print();
+    
+    return 0;
+}
+
+
+
+
+OUTPUT:
+
+0->1, 2, 3 
+1->0, 3 
+2->0, 3
+3->0, 1, 2
+
+
